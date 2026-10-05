@@ -1,0 +1,93 @@
+:root {
+  --bg: midnightblue;
+  --panel: darkslateblue;
+  --text: white;
+  --muted: lightsteelblue;
+  --accent: gold;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.top {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 14px 20px;
+  background: crimson; border-bottom: 6px solid black;
+}
+.top h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+#search {
+  flex: 1 1 220px; max-width: 360px;
+  padding: 10px 14px; font-size: 1rem;
+  border: 3px solid black; border-radius: 999px;
+}
+#search:focus { outline: 3px solid var(--accent); }
+
+main { padding: 24px 20px 8px; max-width: 1200px; margin: 0 auto; }
+.status { text-align: center; color: var(--muted); font-size: 1.1rem; min-height: 1.4em; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  --type: gray;
+  background: linear-gradient(160deg, var(--type) 0%, var(--panel) 85%);
+  border-radius: 18px;
+  padding: 14px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  box-shadow: 0 4px 14px color-mix(in srgb, black 35%, transparent);
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 12px 24px color-mix(in srgb, black 50%, transparent); }
+.card img { width: 130px; height: 130px; object-fit: contain; transition: transform .25s; }
+.card:hover img { transform: scale(1.12); }
+.card h2 { margin: 0; font-size: 1.1rem; text-transform: capitalize; }
+.id { color: var(--muted); font-size: .8rem; }
+.types { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.type {
+  background: color-mix(in srgb, black 35%, transparent); padding: 2px 10px; border-radius: 999px;
+  font-size: .75rem; text-transform: capitalize;
+}
+.meta { font-size: .8rem; color: lavender; }
+.card button, .pager button, .message button {
+  background: var(--accent); color: black; font-weight: bold;
+  border: 2px solid black; border-radius: 10px;
+  padding: 8px 14px; cursor: pointer; font-size: .9rem;
+  transition: transform .1s, filter .2s;
+}
+.card button:hover, .pager button:not(:disabled):hover { filter: brightness(1.1); transform: scale(1.05); }
+.card button:active { transform: scale(.96); }
+button:focus-visible { outline: 3px solid white; outline-offset: 2px; }
+.card button { margin-top: auto; }
+
+.pager { display: flex; justify-content: center; align-items: center; gap: 16px; padding: 24px 20px 40px; }
+.pager button:disabled { opacity: .4; cursor: not-allowed; }
+
+.message {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  width: min(92vw, 460px);
+  background: white; color: black; border: 3px solid black; border-radius: 16px;
+  padding: 16px 20px; text-align: center; z-index: 20;
+  box-shadow: 0 10px 30px color-mix(in srgb, black 60%, transparent);
+  animation: pop .25s ease-out;
+}
+.message[hidden] { display: none; }
+.message p { margin: 0 0 12px; font-size: 1.1rem; }
+@keyframes pop { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+@media (max-width: 480px) {
+  .top h1 { font-size: 1.4rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card img { width: 100px; height: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
